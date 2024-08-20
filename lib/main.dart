@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/views/home_view.dart';
 
-void main() {
+void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SourceModel sourceModel = await Api().getSources();
+  // print(sourceModel.sources);
   runApp(NewsApp());
 }
 
