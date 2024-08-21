@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/apis/api.dart';
 import 'package:news_app/models/source_model.dart';
+import 'package:news_app/widgets/source_item.dart';
 
-class HomPage extends StatelessWidget {
+class HomPage extends StatefulWidget {
   static const String routName = "HomPage";
-  const HomPage({super.key});
+
+  HomPage({super.key});
+
+  @override
+  State<HomPage> createState() => _HomPageState();
+}
+
+class _HomPageState extends State<HomPage> {
+  int selectedTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -57,20 +66,32 @@ class HomPage extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               showErrorDialog(context, snapshot);
-            } else if (snapshot.hasData) {
-              var listSources = snapshot.data!.sources;
-
-              if (listSources!.isEmpty) {
-                return const Center(child: Text("No data available"));
-              }
-
-              return ListView.builder(
-                itemCount: listSources.length,
-                itemBuilder: (context, index) =>
-                    Text(listSources[index].name ?? ""),
-              );
             }
-            return const Center(child: Text('No data found'));
+
+            var listSources = snapshot.data?.sources ?? [];
+
+            return DefaultTabController(
+              length: listSources.length,
+              child: TabBar(
+                padding: EdgeInsets.only(top: 12),
+                dividerColor: Colors.transparent,
+                indicatorColor: Colors.transparent,
+                isScrollable: true,
+                onTap: (value) {
+                  selectedTabIndex = value;
+                  setState(() {});
+                },
+                tabs: listSources
+                    .map(
+                      (e) => SourceItem(
+                        source: e,
+                        isSelected:
+                            listSources.elementAt(selectedTabIndex) == e,
+                      ),
+                    )
+                    .toList(),
+              ),
+            );
           },
         ),
       ),
@@ -96,3 +117,32 @@ class HomPage extends StatelessWidget {
     );
   }
 }
+
+
+
+/*
+
+ FutureBuilder(
+          future: Api.getSources(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              showErrorDialog(context, snapshot);
+            } else if (snapshot.hasData) {
+              var listSources = snapshot.data!.sources;
+
+              if (listSources!.isEmpty) {
+                return const Center(child: Text("No data available"));
+              }
+
+              return ListView.builder(
+                itemCount: listSources.length,
+                itemBuilder: (context, index) =>
+                    Text(listSources[index].name ?? ""),
+              );
+            }
+            return const Center(child: Text('No data found'));
+          },
+        ),
+*/
