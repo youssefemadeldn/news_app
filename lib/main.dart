@@ -5,7 +5,9 @@ void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // SourceModel sourceModel = await Api().getSources();
   // print(sourceModel.sources);
-  runApp(NewsApp());
+  // NewsModel newsModel = await Api.getEverythingNews("abc-news");
+  // print(newsModel.articles);
+  runApp(const NewsApp());
 }
 
 class NewsApp extends StatelessWidget {
