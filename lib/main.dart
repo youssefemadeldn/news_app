@@ -14,6 +14,7 @@ class NewsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: HomPage.routName,
       routes: {
         HomPage.routName: (context) => HomPage(),
