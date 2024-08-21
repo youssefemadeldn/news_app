@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/apis/api.dart';
 import 'package:news_app/models/source_model.dart';
 import 'package:news_app/widgets/source_item.dart';
+import 'package:news_app/widgets/tab_bar_widget.dart';
 
 class HomPage extends StatefulWidget {
   static const String routName = "HomPage";
@@ -59,60 +60,33 @@ class _HomPageState extends State<HomPage> {
           ),
           backgroundColor: Colors.green,
         ),
-        body: FutureBuilder(
-          future: Api.getSources(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              showErrorDialog(context, snapshot);
-            }
+        body: Column(
+          children: [
+            TabBarWidget(),
+            FutureBuilder(
+              future: Api.getEverythingNews("abc-news-au"),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text("Something went wrong"));
+                }
 
-            var listSources = snapshot.data?.sources ?? [];
+                var listArticles = snapshot.data?.articles ?? [];
 
-            return DefaultTabController(
-              length: listSources.length,
-              child: TabBar(
-                padding: EdgeInsets.only(top: 12),
-                dividerColor: Colors.transparent,
-                indicatorColor: Colors.transparent,
-                isScrollable: true,
-                onTap: (value) {
-                  selectedTabIndex = value;
-                  setState(() {});
-                },
-                tabs: listSources
-                    .map(
-                      (e) => SourceItem(
-                        source: e,
-                        isSelected:
-                            listSources.elementAt(selectedTabIndex) == e,
-                      ),
-                    )
-                    .toList(),
-              ),
-            );
-          },
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: listArticles.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(listArticles[index].title ?? ""),
+                    ),
+                  ),
+                );
+              },
+            )
+          ],
         ),
-      ),
-    );
-  }
-
-  Future<dynamic> showErrorDialog(
-      BuildContext context, AsyncSnapshot<SourceModel> snapshot) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Error"),
-        content: Text(snapshot.error.toString()),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text("Ok"),
-          ),
-        ],
       ),
     );
   }
