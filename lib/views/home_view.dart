@@ -62,12 +62,17 @@ class _HomPageState extends State<HomPage> {
         ),
         body: Column(
           children: [
-            TabBarWidget(),
+            SizedBox(
+              height: 60,
+              child: TabBarWidget(),
+            ),
             FutureBuilder(
               future: Api.getEverythingNews("abc-news-au"),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return SizedBox(
+                      height: MediaQuery.of(context).size.height * .8,
+                      child: Center(child: CircularProgressIndicator()));
                 } else if (snapshot.hasError) {
                   return const Center(child: Text("Something went wrong"));
                 }
