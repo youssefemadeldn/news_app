@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/views/home_view.dart';
+import 'package:news_app/views/splash_view.dart';
 
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +18,9 @@ class NewsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: HomPage.routName,
+      initialRoute: SplashView.routName,
       routes: {
+        SplashView.routName: (context) => SplashView(),
         HomPage.routName: (context) => HomPage(),
       },
     );
