@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/apis/api.dart';
-import 'package:news_app/models/source_model.dart';
-import 'package:news_app/widgets/source_item.dart';
+import 'package:news_app/widgets/source_tab_item.dart';
 
 class TabBarWidget extends StatefulWidget {
   TabBarWidget({super.key});
@@ -21,7 +20,70 @@ class _TabBarWidgetState extends State<TabBarWidget> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          showErrorDialog(context, snapshot);
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "something went wrong, check internet",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Api.getSources();
+                    setState(() {});
+                  },
+                  child: const Text(
+                    "try again",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
+        if (snapshot.data!.status != 'ok') {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  snapshot.data!.message!,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Api.getSources();
+                    setState(() {});
+                  },
+                  child: const Text(
+                    "try again",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
         }
 
         var listSources = snapshot.data?.sources ?? [];
@@ -39,7 +101,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
             },
             tabs: listSources
                 .map(
-                  (e) => SourceItem(
+                  (e) => SourceTabItem(
                     source: e,
                     isSelected: listSources.elementAt(selectedTabIndex) == e,
                   ),
@@ -48,25 +110,6 @@ class _TabBarWidgetState extends State<TabBarWidget> {
           ),
         );
       },
-    );
-  }
-
-  Future<dynamic> showErrorDialog(
-      BuildContext context, AsyncSnapshot<SourceModel> snapshot) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Error"),
-        content: Text(snapshot.error.toString()),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text("Ok"),
-          ),
-        ],
-      ),
     );
   }
 }

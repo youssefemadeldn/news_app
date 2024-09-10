@@ -1,6 +1,5 @@
 // https://newsapi.org/v2/top-headlines/sources?apiKey=77b8f7df8a524fdd95bf90b76b3b98d2
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:http/http.dart' as http;
 import 'package:news_app/models/news_model.dart';
@@ -17,10 +16,14 @@ class Api {
     );
     http.Response response = await http.get(url);
 
-    Map<String, dynamic> json = jsonDecode(response.body);
-    SourceModel sourceModel = SourceModel.fromJson(json);
+    try {
+      Map<String, dynamic> json = jsonDecode(response.body);
+      SourceModel sourceModel = SourceModel.fromJson(json);
 
-    return sourceModel;
+      return sourceModel;
+    } catch (e) {
+      throw e;
+    }
   }
 
 // https://newsapi.org/v2/everything?sources=abc-news&apiKey=77b8f7df8a524fdd95bf90b76b3b98d2
@@ -36,10 +39,14 @@ class Api {
 
     http.Response response = await http.get(url);
 
-    Map<String, dynamic> json = jsonDecode(response.body);
+    try {
+      Map<String, dynamic> json = jsonDecode(response.body);
 
-    NewsModel newsModel = NewsModel.fromJson(json);
+      NewsModel newsModel = NewsModel.fromJson(json);
 
-    return newsModel;
+      return newsModel;
+    } catch (e) {
+      throw e;
+    }
   }
 }
