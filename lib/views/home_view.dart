@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/apis/api.dart';
 import 'package:news_app/widgets/category_fragment.dart';
 import 'package:news_app/widgets/display_news.dart';
+import 'package:news_app/widgets/home_drawer.dart';
 import 'package:news_app/widgets/tab_widget.dart';
 
 class HomPage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _HomPageState extends State<HomPage> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        drawer: Drawer(),
+        drawer: HomeDrawer(),
         appBar: AppBar(
           centerTitle: true,
           actions: [
@@ -66,6 +67,7 @@ class _HomPageState extends State<HomPage> {
     );
   }
 }
+
 
 
 
