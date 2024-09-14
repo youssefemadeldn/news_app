@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/categoryModel.dart';
+import 'package:news_app/views/setting_tab.dart';
 import 'package:news_app/widgets/category_fragment.dart';
 import 'package:news_app/widgets/display_news.dart';
 import 'package:news_app/widgets/home_drawer.dart';
@@ -30,7 +31,7 @@ class _HomPageState extends State<HomPage> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        drawer: HomeDrawer(),
+        drawer: HomeDrawer(onDrawerClick: onDrawerClick),
         appBar: AppBar(
           centerTitle: true,
           actions: [
@@ -51,9 +52,9 @@ class _HomPageState extends State<HomPage> {
             bottomRight: Radius.circular(25),
             bottomLeft: Radius.circular(25),
           )),
-          title: const Text(
-            "News APP",
-            style: TextStyle(
+          title: Text(
+            selectedCategory?.title ?? "News App",
+            style: const TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w400,
               color: Colors.white,
@@ -61,11 +62,13 @@ class _HomPageState extends State<HomPage> {
           ),
           backgroundColor: Colors.green,
         ),
-        body: selectedCategory == null
-            ? CategoryFragment(onCategoryItemClick: onCategoryItemClick)
-            : DisplayNews(
-                categoryModel: selectedCategory!,
-              ),
+        body: selectedSideMenu == HomeDrawer.settings
+            ? (SettingTab())
+            : (selectedCategory == null
+                ? (CategoryFragment(onCategoryItemClick: onCategoryItemClick))
+                : (DisplayNews(
+                    categoryModel: selectedCategory!,
+                  ))),
       ),
     );
   }
@@ -73,6 +76,14 @@ class _HomPageState extends State<HomPage> {
   CategoryModel? selectedCategory;
   void onCategoryItemClick(CategoryModel newCategory) {
     selectedCategory = newCategory;
+    setState(() {});
+  }
+
+  int selectedSideMenu = HomeDrawer.categories;
+  void onDrawerClick(int newSideMenu) {
+    selectedSideMenu = newSideMenu;
+    selectedCategory = null;
+    Navigator.pop(context);
     setState(() {});
   }
 }

@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({
+  Function onDrawerClick;
+  static const int categories = 1;
+  static const int settings = 2;
+  HomeDrawer({
     super.key,
+    required this.onDrawerClick,
   });
 
   @override
@@ -27,7 +31,9 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                onDrawerClick(categories);
+              },
               child: Row(
                 children: [
                   const Icon(
@@ -48,7 +54,9 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                onDrawerClick(settings);
+              },
               child: Row(
                 children: [
                   const Icon(
