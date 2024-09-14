@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/apis/api.dart';
+import 'package:news_app/models/categoryModel.dart';
 import 'package:news_app/widgets/source_tab_item.dart';
 
 class TabBarWidget extends StatefulWidget {
-  TabBarWidget({super.key});
+  CategoryModel categoryModel;
+  TabBarWidget({super.key, required this.categoryModel});
 
   @override
   State<TabBarWidget> createState() => _TabBarWidgetState();
@@ -15,7 +17,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Api.getSources(),
+      future: Api.getSources(widget.categoryModel.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -37,7 +39,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Api.getSources();
+                    Api.getSources(widget.categoryModel.id);
                     setState(() {});
                   },
                   child: const Text(
@@ -70,7 +72,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Api.getSources();
+                    Api.getSources(widget.categoryModel.id);
                     setState(() {});
                   },
                   child: const Text(

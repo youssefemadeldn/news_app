@@ -6,12 +6,13 @@ import 'package:news_app/models/news_model.dart';
 import 'package:news_app/models/source_model.dart';
 
 class Api {
-  static Future<SourceModel> getSources() async {
+  static Future<SourceModel> getSources(String categoryId) async {
     Uri url = Uri.https(
       "newsapi.org",
       "/v2/top-headlines/sources",
       {
         "apiKey": "77b8f7df8a524fdd95bf90b76b3b98d2",
+        "category": categoryId,
       },
     );
     http.Response response = await http.get(url);

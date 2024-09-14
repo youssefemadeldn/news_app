@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/apis/api.dart';
+import 'package:news_app/models/categoryModel.dart';
 import 'package:news_app/widgets/category_fragment.dart';
 import 'package:news_app/widgets/display_news.dart';
 import 'package:news_app/widgets/home_drawer.dart';
-import 'package:news_app/widgets/tab_widget.dart';
 
 class HomPage extends StatefulWidget {
   static const String routName = "HomPage";
@@ -62,9 +61,19 @@ class _HomPageState extends State<HomPage> {
           ),
           backgroundColor: Colors.green,
         ),
-        body: CategoryFragment(),
+        body: selectedCategory == null
+            ? CategoryFragment(onCategoryItemClick: onCategoryItemClick)
+            : DisplayNews(
+                categoryModel: selectedCategory!,
+              ),
       ),
     );
+  }
+
+  CategoryModel? selectedCategory;
+  void onCategoryItemClick(CategoryModel newCategory) {
+    selectedCategory = newCategory;
+    setState(() {});
   }
 }
 

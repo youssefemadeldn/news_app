@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/apis/api.dart';
+import 'package:news_app/models/categoryModel.dart';
 import 'package:news_app/widgets/tab_widget.dart';
 
 class DisplayNews extends StatefulWidget {
-  const DisplayNews({super.key});
+  CategoryModel categoryModel;
+  DisplayNews({super.key, required this.categoryModel});
 
   @override
   State<DisplayNews> createState() => _DisplayNewsState();
@@ -17,7 +19,7 @@ class _DisplayNewsState extends State<DisplayNews> {
         SizedBox(
             height: 60,
             child: FutureBuilder(
-                future: Api.getSources(),
+                future: Api.getSources(widget.categoryModel.id),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -36,7 +38,7 @@ class _DisplayNewsState extends State<DisplayNews> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Api.getSources();
+                          Api.getSources(widget.categoryModel.id);
                           setState(() {});
                         },
                         child: Text("Try Again"),

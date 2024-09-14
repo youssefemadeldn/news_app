@@ -5,7 +5,8 @@ import 'package:news_app/widgets/category_item.dart';
 
 class CategoryFragment extends StatelessWidget {
   var categoryList = CategoryModel.getCategories();
-  CategoryFragment({super.key});
+  Function onCategoryItemClick;
+  CategoryFragment({super.key, required this.onCategoryItemClick});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +34,14 @@ class CategoryFragment extends StatelessWidget {
                 crossAxisSpacing: 10,
               ),
               itemBuilder: (context, i) {
-                return CategoryItem(
-                  category: categoryList[i],
-                  index: i,
+                return InkWell(
+                  onTap: () {
+                    onCategoryItemClick(categoryList[i]);
+                  },
+                  child: CategoryItem(
+                    category: categoryList[i],
+                    index: i,
+                  ),
                 );
               },
               itemCount: categoryList.length,
