@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/apis/api.dart';
-import 'package:news_app/cubits/source_states.dart';
+import 'package:news_app/cubits/source_cubit/source_states.dart';
 
 class DisplayNewsViewModelCubit extends Cubit<SourceStates> {
   DisplayNewsViewModelCubit() : super(SourceLoadingState());
 
-  void getSources(String categoryId) async {
+  Future<void> getSources(String categoryId) async {
     try {
       emit(SourceLoadingState());
       var response = await Api.getSources(categoryId);
