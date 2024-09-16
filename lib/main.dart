@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/bloc_observer.dart';
 import 'package:news_app/views/home_view.dart';
 import 'package:news_app/views/splash_view.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   // SourceModel sourceModel = await Api().getSources();
   // print(sourceModel.sources);
   // NewsModel newsModel = await Api.getEverythingNews("abc-news");
   // print(newsModel.articles);
+  Bloc.observer = MyBlocObserver();
   runApp(const NewsApp());
 }
 

@@ -58,9 +58,9 @@ class _NewsWidgetState extends State<NewsWidget> {
             ),
           );
         } else {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height * .8,
-            child: const Center(
+          return const SizedBox(
+            // height: MediaQuery.of(context).size.height * .8,
+            child: Center(
               child: CircularProgressIndicator(
                 color: Colors.green,
               ),
