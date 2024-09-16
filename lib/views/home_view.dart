@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/models/categoryModel.dart';
 import 'package:news_app/views/setting_tab.dart';
 import 'package:news_app/widgets/category_fragment.dart';
-import 'package:news_app/widgets/display_news.dart';
+import 'package:news_app/cubits/display_news.dart';
 import 'package:news_app/widgets/home_drawer.dart';
 
 class HomPage extends StatefulWidget {
