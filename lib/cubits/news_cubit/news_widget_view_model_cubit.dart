@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/apis/api.dart';
-import 'package:news_app/cubits/new_cubit/news_state.dart';
+import 'package:news_app/cubits/news_cubit/news_state.dart';
 
 class NewsWidgetViewModelCubit extends Cubit<NewsState> {
   NewsWidgetViewModelCubit(super.initialState);
