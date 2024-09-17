@@ -6,7 +6,7 @@ import 'package:news_app/models/news_model.dart';
 import 'package:news_app/models/source_model.dart';
 
 class Api {
-  static Future<SourceModel> getSources(String categoryId) async {
+  Future<SourceModel> getSources(String categoryId) async {
     Uri url = Uri.https(
       "newsapi.org",
       "/v2/top-headlines/sources",
