@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/source_model.dart';
-import 'package:news_app/cubits/new_cubit/news_widget.dart';
+import 'package:news_app/cubits/news_cubit/news_widget.dart';
 import 'package:news_app/widgets/source_tab_item.dart';
 
 class TabWidget extends StatefulWidget {

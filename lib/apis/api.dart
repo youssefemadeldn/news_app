@@ -28,7 +28,7 @@ class Api {
   }
 
 // https://newsapi.org/v2/everything?sources=abc-news&apiKey=77b8f7df8a524fdd95bf90b76b3b98d2
-  static Future<NewsModel> getEverythingNews(String sourceId) async {
+  Future<NewsModel> getEverythingNews(String sourceId) async {
     Uri url = Uri.https(
       "newsapi.org",
       "/v2/everything",
