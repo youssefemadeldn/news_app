@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:news_app/bloc_observer.dart';
 import 'package:news_app/views/home_view.dart';
 import 'package:news_app/views/splash_view.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // SourceModel sourceModel = await Api().getSources();
-  // print(sourceModel.sources);
-  // NewsModel newsModel = await Api.getEverythingNews("abc-news");
-  // print(newsModel.articles);
+
   Bloc.observer = MyBlocObserver();
+  // Hive init
+  final appDocumentDirectory = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDirectory.path);
   runApp(const NewsApp());
 }
 

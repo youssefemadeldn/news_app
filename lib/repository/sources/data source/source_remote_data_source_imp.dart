@@ -7,7 +7,7 @@ class SourceRemoteDataSourceImp implements BaseRemoteSourceDataSource {
 
   SourceRemoteDataSourceImp({required this.api});
   @override
-  Future<SourceModel?> getSources(String categoryId) async {
+  Future<SourceModel> getSources(String categoryId) async {
     var response = await api.getSources(categoryId);
 
     return response;

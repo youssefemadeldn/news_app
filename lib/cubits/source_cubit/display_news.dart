@@ -49,11 +49,13 @@ class _DisplayNewsState extends State<DisplayNews> {
                         color: Colors.black,
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        viewModel.getSources(widget.categoryModel.id);
-                      },
-                      child: const Text("Try Again"),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          viewModel.getSources(widget.categoryModel.id);
+                        },
+                        child: const Text("Try Again"),
+                      ),
                     ),
                   ],
                 );
