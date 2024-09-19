@@ -20,7 +20,7 @@ class SourceRepositoryImpl implements BaseSourceRepository {
         // ignore: unrelated_type_equality_checks
         connectivityResult == ConnectivityResult.mobile) {
       var response = await baseRemoteSourceDataSource.getSources(categoryId);
-      baseLocalSourceDataSource.saveSources(response);
+      baseLocalSourceDataSource.saveSources(response, categoryId);
 
       return response;
     } else {

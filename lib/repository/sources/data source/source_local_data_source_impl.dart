@@ -7,16 +7,16 @@ class SourceLocalDataSourceImpl implements BaseLocalSourceDataSource {
   Future<SourceModel> getSources(String categoryId) async {
     var box = await Hive.openBox('taps');
 
-    var responseCache = SourceModel.fromJson(box.get('tap'));
+    var responseCache = SourceModel.fromJson(box.get(categoryId));
 
     return responseCache;
   }
 
   @override
-  void saveSources(SourceModel? sourceModel) async {
+  void saveSources(SourceModel? sourceModel, String category) async {
     var box = await Hive.openBox('taps');
 
-    await box.put('tab', sourceModel?.toJson());
+    await box.put(category, sourceModel?.toJson());
     await box.close();
   }
 }

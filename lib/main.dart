@@ -11,6 +11,7 @@ void main() async {
 
   Bloc.observer = MyBlocObserver();
   // Hive init
+  // Hive.registerAdapter(modelNameAdapter);
   final appDocumentDirectory = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   runApp(const NewsApp());

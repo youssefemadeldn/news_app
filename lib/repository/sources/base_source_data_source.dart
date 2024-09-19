@@ -7,7 +7,7 @@ abstract class BaseRemoteSourceDataSource {
 abstract class BaseLocalSourceDataSource {
   Future<SourceModel?> getSources(String categoryId);
 
-  void saveSources(SourceModel? sourceModel);
+  void saveSources(SourceModel? sourceModel, String categoryId);
 }
 
 // abstract class CashSourceDataSource {}  
